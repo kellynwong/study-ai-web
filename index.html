@@ -637,6 +637,10 @@ button { color: inherit; }
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>';
   }
 
+  let swipePrev = null;
+  let swipeNext = null;
+  let swipeReady = false;
+
   function home() {
     const packs = STUDY.packs.map((p) => {
       const chips = p.cards.map((id) =>
@@ -655,6 +659,7 @@ button { color: inherit; }
       `<div class="pair"><b>${x.left} ≠ ${x.right}</b><span>${x.line}</span></div>`
     ).join("");
 
+    swipePrev = swipeNext = null;
     app.classList.remove("wide", "study");
     app.innerHTML = `
       ${topbar("Study AI")}
@@ -725,17 +730,23 @@ button { color: inherit; }
     }
     $("prev").onclick = goPrev;
     $("next").onclick = goNext;
-    bindSwipe(app, goPrev, goNext);
+    swipePrev = goPrev;
+    swipeNext = () => {
+      if (last) return;
+      goNext();
+    };
+    bindSwipe();
   }
 
-  function bindSwipe(el, goPrev, goNext) {
-    if (!el) return;
+  function bindSwipe() {
+    if (swipeReady) return;
+    swipeReady = true;
     let x0 = 0, y0 = 0, locked = false, active = false;
     function ignore(t) {
       return !t || t.closest("button, a, input, .nav");
     }
     function start(x, y, t) {
-      if (ignore(t)) return;
+      if (!swipeNext || ignore(t)) return;
       active = true;
       locked = false;
       x0 = x;
@@ -754,23 +765,23 @@ button { color: inherit; }
       const dx = x - x0;
       const dy = y - y0;
       if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-      if (dx < 0) goNext();
-      else goPrev();
+      if (dx < 0) swipeNext && swipeNext();
+      else swipePrev && swipePrev();
     }
-    el.addEventListener("touchstart", (e) => {
+    app.addEventListener("touchstart", (e) => {
       if (e.touches.length !== 1) return;
       start(e.touches[0].clientX, e.touches[0].clientY, e.target);
     }, { passive: true });
-    el.addEventListener("touchmove", (e) => {
+    app.addEventListener("touchmove", (e) => {
       if (!active || e.touches.length !== 1) return;
       move(e.touches[0].clientX, e.touches[0].clientY, e);
     }, { passive: false });
-    el.addEventListener("touchend", (e) => {
+    app.addEventListener("touchend", (e) => {
       const t = e.changedTouches[0];
       if (t) end(t.clientX, t.clientY);
       else active = false;
     }, { passive: true });
-    el.addEventListener("touchcancel", () => { active = false; });
+    app.addEventListener("touchcancel", () => { active = false; });
   }
 
   function startQuiz(ids, title) {
@@ -781,6 +792,7 @@ button { color: inherit; }
   }
 
   function quizView() {
+    swipePrev = swipeNext = null;
     const qz = state.quiz;
     app.classList.remove("wide");
     if (state.qI >= qz.ids.length) {
@@ -844,6 +856,7 @@ button { color: inherit; }
         `<button class="gitem" data-id="${id}"><b>${c.term}</b><span>${c.one}</span></button>`
       ).join("");
 
+    swipePrev = swipeNext = null;
     app.classList.add("wide");
     app.classList.remove("study");
     app.innerHTML = `
