@@ -126,6 +126,8 @@ button { color: inherit; }
   align-items: start;
   overflow: visible;
   touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .col-read {
   display: flex;
@@ -723,29 +725,52 @@ button { color: inherit; }
     }
     $("prev").onclick = goPrev;
     $("next").onclick = goNext;
-    bindSwipe(document.querySelector(".stage"), goPrev, goNext);
+    bindSwipe(app, goPrev, goNext);
   }
 
   function bindSwipe(el, goPrev, goNext) {
     if (!el) return;
-    let x0 = 0, y0 = 0, pid = null;
-    el.addEventListener("pointerdown", (e) => {
-      if (e.pointerType === "mouse" && e.button !== 0) return;
-      if (e.target.closest("button, a, input")) return;
-      pid = e.pointerId;
-      x0 = e.clientX;
-      y0 = e.clientY;
-    });
-    el.addEventListener("pointerup", (e) => {
-      if (pid !== e.pointerId) return;
-      pid = null;
-      const dx = e.clientX - x0;
-      const dy = e.clientY - y0;
-      if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    let x0 = 0, y0 = 0, locked = false, active = false;
+    function ignore(t) {
+      return !t || t.closest("button, a, input, .nav");
+    }
+    function start(x, y, t) {
+      if (ignore(t)) return;
+      active = true;
+      locked = false;
+      x0 = x;
+      y0 = y;
+    }
+    function move(x, y, e) {
+      if (!active) return;
+      const dx = x - x0;
+      const dy = y - y0;
+      if (!locked && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) locked = true;
+      if (locked && e.cancelable) e.preventDefault();
+    }
+    function end(x, y) {
+      if (!active) return;
+      active = false;
+      const dx = x - x0;
+      const dy = y - y0;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
       if (dx < 0) goNext();
       else goPrev();
-    });
-    el.addEventListener("pointercancel", () => { pid = null; });
+    }
+    el.addEventListener("touchstart", (e) => {
+      if (e.touches.length !== 1) return;
+      start(e.touches[0].clientX, e.touches[0].clientY, e.target);
+    }, { passive: true });
+    el.addEventListener("touchmove", (e) => {
+      if (!active || e.touches.length !== 1) return;
+      move(e.touches[0].clientX, e.touches[0].clientY, e);
+    }, { passive: false });
+    el.addEventListener("touchend", (e) => {
+      const t = e.changedTouches[0];
+      if (t) end(t.clientX, t.clientY);
+      else active = false;
+    }, { passive: true });
+    el.addEventListener("touchcancel", () => { active = false; });
   }
 
   function startQuiz(ids, title) {
@@ -876,7 +901,9 @@ button { color: inherit; }
 
   paint();
   if ("serviceWorker" in navigator && location.protocol === "https:") {
-    navigator.serviceWorker.register("./sw.js").catch(function () {});
+    navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).then(function (reg) {
+      reg.update();
+    }).catch(function () {});
   }
 })();
 </script>
