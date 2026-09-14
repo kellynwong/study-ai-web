@@ -1,0 +1,9 @@
+{
+  "name": "Study AI",
+  "short_name": "Study AI",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F3EDE3",
+  "theme_color": "#F3EDE3",
+  "description": "Short cards for AI words. No product pitch."
+}
