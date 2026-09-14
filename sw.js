@@ -1,4 +1,4 @@
-const CACHE = "study-ai-v12";
+const CACHE = "study-ai-v13";
 const ASSETS = ["./index.html", "./cards.js", "./viz.js", "./manifest.json", "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png", "./favicon.png", "./"];
 
 self.addEventListener("install", (event) => {
