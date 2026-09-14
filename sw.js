@@ -1,5 +1,5 @@
-const CACHE = "study-ai-v11";
-const ASSETS = ["./index.html", "./cards.js", "./viz.js", "./manifest.json", "./"];
+const CACHE = "study-ai-v12";
+const ASSETS = ["./index.html", "./cards.js", "./viz.js", "./manifest.json", "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png", "./favicon.png", "./"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
