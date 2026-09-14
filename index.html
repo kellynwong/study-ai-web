@@ -125,6 +125,7 @@ button { color: inherit; }
   padding: 0 16px;
   align-items: start;
   overflow: visible;
+  touch-action: pan-y;
 }
 .col-read {
   display: flex;
@@ -710,16 +711,41 @@ button { color: inherit; }
       </div>`;
 
     $("back").onclick = () => go("home");
-    $("prev").onclick = () => {
+    function goPrev() {
       if (state.i === 0) return;
       state.i -= 1;
       paint();
-    };
-    $("next").onclick = () => {
+    }
+    function goNext() {
       if (last) { go("home"); return; }
       state.i += 1;
       paint();
-    };
+    }
+    $("prev").onclick = goPrev;
+    $("next").onclick = goNext;
+    bindSwipe(document.querySelector(".stage"), goPrev, goNext);
+  }
+
+  function bindSwipe(el, goPrev, goNext) {
+    if (!el) return;
+    let x0 = 0, y0 = 0, pid = null;
+    el.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (e.target.closest("button, a, input")) return;
+      pid = e.pointerId;
+      x0 = e.clientX;
+      y0 = e.clientY;
+    });
+    el.addEventListener("pointerup", (e) => {
+      if (pid !== e.pointerId) return;
+      pid = null;
+      const dx = e.clientX - x0;
+      const dy = e.clientY - y0;
+      if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      if (dx < 0) goNext();
+      else goPrev();
+    });
+    el.addEventListener("pointercancel", () => { pid = null; });
   }
 
   function startQuiz(ids, title) {
