@@ -23,13 +23,13 @@ window.STUDY = {
       id: "job",
       title: "Your job now",
       blurb: "The words people use for how you work with it.",
-      cards: ["vibe", "taste", "plan-mode", "eval"]
+      cards: ["vibe", "agentic-coding", "taste", "plan-mode", "spec", "eval"]
     },
     {
       id: "wrong",
       title: "When it goes wrong",
       blurb: "Why a long chat gets worse, not smarter.",
-      cards: ["hallucination", "context-rot", "lost-middle", "pollution"]
+      cards: ["hallucination", "slop", "context-rot", "lost-middle", "pollution"]
     },
     {
       id: "helpers",
@@ -205,6 +205,17 @@ window.STUDY = {
       opts: ["The AI writes while you steer in plain language", "You turn the lights down to code", "A model that only writes CSS"],
       a: 0
     },
+    "agentic-coding": {
+      term: "Agentic coding",
+      aka: "also: agentic engineering",
+      one: "You set the job. The agent loops — plan, edit, test — until it is done.",
+      picture: "Not a chat you steer line by line. A worker you send on an errand, then you review.",
+      hear: "Karpathy, 2026: the grown-up name after vibe coding. “It made a PR while I was out.”",
+      tip: "Vibe is you in every sentence. Agentic is you at the start and the end.",
+      q: "Agentic coding means…",
+      opts: ["You type every line and it suggests the next", "The agent loops on a job until it is done", "A cheaper model for CSS"],
+      a: 1
+    },
     taste: {
       term: "Taste",
       aka: "the job they cannot outsource",
@@ -227,6 +238,17 @@ window.STUDY = {
       opts: ["Every single message", "The job is big or hard to undo", "You want a cheaper model"],
       a: 1
     },
+    spec: {
+      term: "Spec-driven",
+      aka: "write it down first",
+      one: "A written spec is the source of truth. The agent builds against that, not a vibe.",
+      picture: "The recipe on the counter — who it’s for, what it must do, what “done” looks like.",
+      hear: "“Spec Kit,” “write a spec first,” Kiro’s requirements.md.",
+      tip: "Plan mode is talk first this chat. A spec is a file that still exists tomorrow.",
+      q: "Spec-driven means…",
+      opts: ["The agent guesses from a vibe", "A written spec is what “done” means", "You skip planning and ship"],
+      a: 1
+    },
     eval: {
       term: "Eval",
       aka: "a test for the AI",
@@ -247,6 +269,17 @@ window.STUDY = {
       tip: "Ask it to show the file, the link, or the command output — not to swear it is sure.",
       q: "A hallucination is…",
       opts: ["The AI crashing", "A confident made-up answer", "When the window is full"],
+      a: 1
+    },
+    slop: {
+      term: "Slop",
+      aka: "looks done, isn’t good",
+      one: "AI output that looks finished — and is cheap, padded, or a bit wrong.",
+      picture: "A plate that photographs well. You would not serve it.",
+      hear: "“Don’t merge the slop.” Code that passes tests and still makes the repo worse.",
+      tip: "Hallucination is a made-up fact. Slop is a finished-looking mess. Taste is the filter.",
+      q: "Slop is…",
+      opts: ["A made-up citation", "Output that looks done but is low-quality", "When the window is full"],
       a: 1
     },
     "context-rot": {
@@ -334,6 +367,24 @@ window.STUDY = {
       left: "Vibe coding",
       right: "Taste",
       line: "Vibe is how you make it. Taste is how you know if it is any good."
+    },
+    {
+      id: "vibe-agentic",
+      left: "Vibe coding",
+      right: "Agentic coding",
+      line: "Vibe is you steering every sentence. Agentic is you at the start and the end."
+    },
+    {
+      id: "taste-slop",
+      left: "Taste",
+      right: "Slop",
+      line: "Taste is knowing it is good. Slop is what ships when nobody used taste."
+    },
+    {
+      id: "plan-spec",
+      left: "Plan mode",
+      right: "Spec-driven",
+      line: "Plan mode is talk first this chat. A spec is the file that survives the sweep."
     },
     {
       id: "prompt-context",
