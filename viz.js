@@ -252,6 +252,19 @@ window.VIZ = {
       <small>you steer · it drafts</small>
     </div>`,
 
+  "agentic-coding": `
+    <div class="v-art">
+      <div class="v-kicker">You set the job. It loops.</div>
+      <div class="v-loop">
+        <span>plan</span>
+        <span>edit</span>
+        <span>test</span>
+        <span>retry</span>
+        <span class="stop">done</span>
+      </div>
+      <small>you review the result · not every sentence</small>
+    </div>`,
+
   taste: `
     <div class="v-art">
       <div class="v-kicker">40 dinners. One guest.</div>
@@ -284,6 +297,21 @@ window.VIZ = {
       </div>
     </div>`,
 
+  spec: `
+    <div class="v-art">
+      <div class="v-editor">
+        <div class="v-ebar">
+          <div class="v-traffic"><i></i><i></i><i></i></div>
+          <span class="v-fname">spec.md</span>
+          <span class="v-badge">source of truth</span>
+        </div>
+        <pre class="v-md"><span class="h"># Quiet settings</span>
+<span class="em">Who</span> people on a phone
+<span class="em">What</span> a sheet, keep /ui buttons
+<span class="em">Done</span> one thumb, no new colors</pre>
+      </div>
+    </div>`,
+
   eval: `
     <div class="v-art">
       <div class="v-score">
@@ -303,6 +331,18 @@ window.VIZ = {
         <p>“See <span class="fake">Chen et al., 2024</span>, <i>Journal of Reliable APIs</i>.”</p>
         <div class="v-stamp">no such paper</div>
         <small>Ask for the file, the link, or the command output.</small>
+      </div>
+    </div>`,
+
+  slop: `
+    <div class="v-art v-split">
+      <div class="v-panel junk">
+        <span class="v-kicker">Looks done</span>
+        <p>passes the happy path<br>a new helper nobody asked for<br>comments that say nothing</p>
+      </div>
+      <div class="v-panel on">
+        <span class="v-kicker">Taste</span>
+        <p>Would you merge this if a junior typed it?</p>
       </div>
     </div>`,
 
