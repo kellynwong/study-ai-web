@@ -252,6 +252,17 @@ window.VIZ = {
       <small>you steer · it drafts</small>
     </div>`,
 
+  "agentic-coding": `
+    <div class="v-art">
+      <div class="v-kicker">You start it. You check it.</div>
+      <div class="v-time">
+        <div class="t sharp"><b>you</b> set the job</div>
+        <div class="t mid"><b>it</b> plan · edit · test · again</div>
+        <div class="t sharp"><b>you</b> review the PR</div>
+      </div>
+      <small>not every sentence — the start and the end</small>
+    </div>`,
+
   taste: `
     <div class="v-art">
       <div class="v-kicker">40 dinners. One guest.</div>
@@ -284,6 +295,25 @@ window.VIZ = {
       </div>
     </div>`,
 
+  spec: `
+    <div class="v-art">
+      <div class="v-kicker">The file that survives</div>
+      <div class="v-editor">
+        <div class="v-ebar">
+          <span class="v-traffic"><i></i><i></i><i></i></span>
+          <span class="v-fname">spec.md</span>
+          <span class="v-badge">source of truth</span>
+        </div>
+        <pre class="v-md"><span class="h"># Quiet settings</span>
+<span class="c"># Who it’s for, what “done” is.</span>
+
+- Sheet, not a new page
+- Keep <span class="em">/ui</span> buttons
+- <span class="no">Do not rewrite auth</span></pre>
+      </div>
+      <small>the agent builds against this, not a vibe</small>
+    </div>`,
+
   eval: `
     <div class="v-art">
       <div class="v-score">
@@ -303,6 +333,16 @@ window.VIZ = {
         <p>“See <span class="fake">Chen et al., 2024</span>, <i>Journal of Reliable APIs</i>.”</p>
         <div class="v-stamp">no such paper</div>
         <small>Ask for the file, the link, or the command output.</small>
+      </div>
+    </div>`,
+
+  slop: `
+    <div class="v-art">
+      <div class="v-kicker">Looks done. Would not serve.</div>
+      <div class="v-cite">
+        <p>A long, shiny draft. Generic. A bit wrong.</p>
+        <div class="v-stamp">do not merge</div>
+        <small>finished-looking mess — not a made-up fact</small>
       </div>
     </div>`,
 
